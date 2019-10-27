@@ -1,0 +1,125 @@
+body {
+  font-family: "Lobster", cursive;
+}
+.weatherapp {
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin: auto;
+  padding: 20px;
+  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+}
+.cityIcon {
+  width: 50px;
+}
+#enterCity {
+  border-radius: 10px;
+}
+#searchButton,
+#currentLocation {
+  border-radius: 50px;
+  background-color: #b7dcff;
+  margin: 10px;
+}
+#searchButton i {
+  color: grey;
+}
+#currentLocation i {
+  color: red;
+}
+#currentCity {
+  display: block;
+  color: grey;
+  margin-top: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+#currentDate {
+  text-align: center;
+}
+.mainWeather i {
+  font-size: 200px;
+  text-align: center;
+  padding: 50px;
+}
+#sun {
+  color: yellow;
+}
+#currentTemperature {
+  font-size: 100px;
+  padding: 20px;
+}
+.weatherUnit {
+  font-size: 30px;
+  position: relative;
+  top: -50px;
+}
+#currentWeather {
+  text-align: left;
+}
+#celsius #fahrenheit {
+  cursor: pointer;
+}
+.active {
+  color: black;
+}
+.active:hover {
+  color: black;
+  text-decoration: none;
+  cursor: default;
+}
+.currentWind {
+  padding: 10px;
+}
+.currentPrecipitation {
+  padding: 10px;
+}
+#wind {
+  color: grey;
+}
+#precipitation {
+  color: #1aa3e9;
+}
+#display {
+  border-radius: 10px;
+  padding: 5px;
+  width: 50px;
+  background-color: #ffffc7;
+}
+.fiveDays {
+  font-size: 20px;
+  text-align: center;
+}
+.dayInformation {
+  text-align: center;
+}
+.weatherIconDays {
+  text-align: right;
+}
+.weatherDays {
+  text-align: left;
+  padding: 0px;
+}
+#dot1 {
+  color: #fb7398;
+}
+#dot2 {
+  color: #fb8d83;
+}
+#dot3 {
+  color: #fcaa6c;
+}
+#dot4 {
+  color: #fdc259;
+}
+#dot5 {
+  color: #fdde42;
+}
+#cloudSun {
+  color: #e7d377;
+}
+#rain {
+  color: #1a5f8a;
+}
+#cloud {
+  color: #535353;
+}
