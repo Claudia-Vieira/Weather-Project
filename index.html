@@ -1,366 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/fc4a078ab8.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Weatherapp</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/fc4a078ab8.js" crossorigin="anonymous"></script>
-  <title>Weatherapp</title>
-  <link rel="stylesheet" href="src/style.css" />
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
-
-<body>
-  <div class="container">
-    <div class="weatherapp">
-      <div class="row">
-        <div class="col-xs-6">
-          <form id="searchForm">
-            <img src="cityIcon.jpg" alt="cityIcon" class="cityIcon" />
-            <input type="search" placeholder="Enter city" id="enterCity" autocomplete="off" />
-            <button id="searchButton">
-              <i class="fas fa-search"></i>
-            </button>
-
-          </form>
-        </div>
-        <div class="col-xs-4">
-          <button id="currentLocation">
+  <body>
+    <div class="container">
+      <div class="weatherapp">
+        <div class="row">
+          <div class="col-xs-6">
+            <form id="searchForm">
+              <img src="cityIcon.jpg" alt="cityIcon" class="cityIcon" />
+              <input
+                type="search"
+                placeholder="Enter city"
+                id="enterCity"
+                autocomplete="off"
+              />
+              <button id="searchButton">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
+          <div class="col-xs-4">
+            <button id="currentLocation">
               <i class="fas fa-map-marker-alt"></i>
             </button>
+          </div>
+          <div class="col-6">
+            <h5 id="currentCity"></h5>
+          </div>
         </div>
-        <div class="col-6">
-          <h5 id="currentCity">
-            
-          </h5>
+        <div class="row">
+          <div class="col-3">
+            <p id="currentDate"></p>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-3">
-          <p id="currentDate"></p>
+        <div class="row">
+          <div class="col-xs-6">
+            <img src="" alt="" id="weatherIcon" />
+          </div>
+          <div class="col-xs-6">
+            <div class="row">
+              <div class="col-xs-12">
+                <h1>
+                  <span id="currentTemperature"></span>
+                  <span class="weatherUnit">
+                    <a href="#" id="celsius">ºC</a>
+                    |
+                    <a href="#" id="fahrenheit">ºF</a>
+                  </span>
+                </h1>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <h2 id="currentWeather"></h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4 currentWind">
+                <h3><i class="fas fa-wind" id="wind"></i></h3>
+              </div>
+              <div class="col-xs-4 currentPrecipitation">
+                <h3>
+                  <i class="fas fa-cloud-showers-heavy" id="precipitation"></i>
+                  10%
+                </h3>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-6">
-          <h1 class="mainWeather">
-            <i class="fas fa-sun" id="sun"></i>
-          </h1>
+        <div class="row">
+          <div class="col-12">
+            <form>
+              <label for="rangeHour">Hour</label>
+              <input
+                type="range"
+                class="custom-range"
+                value="0"
+                min="0"
+                max="23"
+                id="rangeHour"
+                oninput="display.value=value"
+                onchange="display.value=value"
+              />
+              <input
+                type="number"
+                id="display"
+                value="0"
+                oninput="rangeHour.value=value"
+                onchange="rangeHour.value=value"
+              />
+            </form>
+          </div>
         </div>
-        <div class="col-xs-6">
+        <hr />
+        <h4>
+          October
+        </h4>
+        <div class="row fiveDays">
+          <div class="col-1">
+            <p>Day</p>
+          </div>
+          <div class="col-1">
+            <p></p>
+          </div>
+          <div class="col-3">
+            <p>
+              Temperature
+            </p>
+          </div>
+          <div class="col-3">
+            <p>Weather</p>
+          </div>
+          <div class="col-2">
+            <p>Wind</p>
+          </div>
+          <div class="col-2">
+            <p>Precipitation</p>
+          </div>
+        </div>
+        <div class="dayInformation">
           <div class="row">
-            <div class="col-xs-12">
-              <h1>
-                <span id="currentTemperature"></span>
-                <span class="weatherUnit">
-                  <a href="#" id="celsius">ºC</a>
-                  |
-                  <a href="#" id="fahrenheit">ºF</a>
-                </span>
-              </h1>
+            <div class="col-1">
+              <p>5</p>
+            </div>
+            <div class="col-1">
+              <p>
+                <i class="far fa-dot-circle" id="dot1"></i>
+              </p>
+            </div>
+            <div class="col-3">
+              <p>
+                23º | 12º
+              </p>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-sun" id="sun"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>Sunny</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-wind" id="wind"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>12km/h</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p>
+                    <i
+                      class="fas fa-cloud-showers-heavy"
+                      id="precipitation"
+                    ></i>
+                  </p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>8%</p>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-12">
-              <h2 id="currentWeather">
-                Sunny
-              </h2>
+            <div class="col-1">
+              <p>6</p>
+            </div>
+            <div class="col-1">
+              <p>
+                <i class="far fa-dot-circle" id="dot2"></i>
+              </p>
+            </div>
+            <div class="col-3">
+              <p>
+                22º | 10º
+              </p>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-cloud-sun" id="cloudSun"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>Cloudy</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-wind" id="wind"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>12km/h</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p>
+                    <i
+                      class="fas fa-cloud-showers-heavy"
+                      id="precipitation"
+                    ></i>
+                  </p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>13%</p>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-4 currentWind">
-              <h3><i class="fas fa-wind" id="wind"></i></h3>
+            <div class="col-1">
+              <p>7</p>
             </div>
-            <div class="col-xs-4 currentPrecipitation">
-              <h3>
-                <i class="fas fa-cloud-showers-heavy" id="precipitation"></i>
-                10%
-              </h3>
+            <div class="col-1">
+              <p>
+                <i class="far fa-dot-circle" id="dot3"></i>
+              </p>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <form>
-            <label for="rangeHour">Hour</label>
-            <input type="range" class="custom-range" value="0" min="0" max="23" id="rangeHour"
-              oninput="display.value=value" onchange="display.value=value" />
-            <input type="number" id="display" value="0" oninput="rangeHour.value=value"
-              onchange="rangeHour.value=value" />
-          </form>
-        </div>
-      </div>
-      <hr />
-      <h4>
-        October
-      </h4>
-      <div class="row fiveDays">
-        <div class="col-1">
-          <p>Day</p>
-        </div>
-        <div class="col-1">
-          <p></p>
-        </div>
-        <div class="col-3">
-          <p>
-            Temperature
-          </p>
-        </div>
-        <div class="col-3">
-          <p>Weather</p>
-        </div>
-        <div class="col-2">
-          <p>Wind</p>
-        </div>
-        <div class="col-2">
-          <p>Precipitation</p>
-        </div>
-      </div>
-      <div class="dayInformation">
-        <div class="row">
-          <div class="col-1">
-            <p>5</p>
-          </div>
-          <div class="col-1">
-            <p>
-              <i class="far fa-dot-circle" id="dot1"></i>
-            </p>
-          </div>
-          <div class="col-3">
-            <p>
-              23º | 12º
-            </p>
-          </div>
-          <div class="col-3">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-sun" id="sun"></i></p>
+            <div class="col-3">
+              <p>
+                21º | 9º
+              </p>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-cloud-rain" id="rain"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>Rainy</p>
+                </div>
               </div>
-              <div class="col-6 weatherDays">
-                <p>Sunny</p>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-wind" id="wind"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>14km/h</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p>
+                    <i
+                      class="fas fa-cloud-showers-heavy"
+                      id="precipitation"
+                    ></i>
+                  </p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>50%</p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-wind" id="wind"></i></p>
+          <div class="row">
+            <div class="col-1">
+              <p>8</p>
+            </div>
+            <div class="col-1">
+              <p>
+                <i class="far fa-dot-circle" id="dot4"></i>
+              </p>
+            </div>
+            <div class="col-3">
+              <p>
+                22ºC | 11º
+              </p>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-cloud" id="cloud"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>Cloudy</p>
+                </div>
               </div>
-              <div class="col-6 weatherDays">
-                <p>12km/h</p>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-wind" id="wind"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>12km/h</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p>
+                    <i
+                      class="fas fa-cloud-showers-heavy"
+                      id="precipitation"
+                    ></i>
+                  </p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>8%</p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p>
-                  <i class="fas fa-cloud-showers-heavy" id="precipitation"></i>
-                </p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>8%</p>
+          <div class="row">
+            <div class="col-1">
+              <p>9</p>
+            </div>
+            <div class="col-1">
+              <p>
+                <i class="far fa-dot-circle" id="dot5"></i>
+              </p>
+            </div>
+            <div class="col-3">
+              <p>
+                23ºC | 11º
+              </p>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-sun" id="sun"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>Sunny</p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1">
-            <p>6</p>
-          </div>
-          <div class="col-1">
-            <p>
-              <i class="far fa-dot-circle" id="dot2"></i>
-            </p>
-          </div>
-          <div class="col-3">
-            <p>
-              22º | 10º
-            </p>
-          </div>
-          <div class="col-3">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-cloud-sun" id="cloudSun"></i></p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>Cloudy</p>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p><i class="fas fa-wind" id="wind"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>8km/h</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-wind" id="wind"></i></p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>12km/h</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p>
-                  <i class="fas fa-cloud-showers-heavy" id="precipitation"></i>
-                </p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>13%</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1">
-            <p>7</p>
-          </div>
-          <div class="col-1">
-            <p>
-              <i class="far fa-dot-circle" id="dot3"></i>
-            </p>
-          </div>
-          <div class="col-3">
-            <p>
-              21º | 9º
-            </p>
-          </div>
-          <div class="col-3">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-cloud-rain" id="rain"></i></p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>Rainy</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-wind" id="wind"></i></p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>14km/h</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p>
-                  <i class="fas fa-cloud-showers-heavy" id="precipitation"></i>
-                </p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>50%</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1">
-            <p>8</p>
-          </div>
-          <div class="col-1">
-            <p>
-              <i class="far fa-dot-circle" id="dot4"></i>
-            </p>
-          </div>
-          <div class="col-3">
-            <p>
-              22ºC | 11º
-            </p>
-          </div>
-          <div class="col-3">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-cloud" id="cloud"></i></p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>Cloudy</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-wind" id="wind"></i></p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>12km/h</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p>
-                  <i class="fas fa-cloud-showers-heavy" id="precipitation"></i>
-                </p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>8%</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-1">
-            <p>9</p>
-          </div>
-          <div class="col-1">
-            <p>
-              <i class="far fa-dot-circle" id="dot5"></i>
-            </p>
-          </div>
-          <div class="col-3">
-            <p>
-              23ºC | 11º
-            </p>
-          </div>
-          <div class="col-3">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-sun" id="sun"></i></p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>Sunny</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p><i class="fas fa-wind" id="wind"></i></p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>8km/h</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="row">
-              <div class="col-6 weatherIconDays">
-                <p>
-                  <i class="fas fa-cloud-showers-heavy" id="precipitation"></i>
-                </p>
-              </div>
-              <div class="col-6 weatherDays">
-                <p>8%</p>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p>
+                    <i
+                      class="fas fa-cloud-showers-heavy"
+                      id="precipitation"
+                    ></i>
+                  </p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p>8%</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <small
+        ><a
+          href="https://github.com/Claudia-Vieira/Weather-Project"
+          target="_blank"
+          >Open-source code</a
+        >, by Cláudia Vieira</small
+      >
     </div>
-    <small><a href="https://github.com/Claudia-Vieira/Weather-Project" target="_blank">Open-source code</a>, by Cláudia Vieira</small>
-  </div>
-</body>
-<script src="src/app.js"></script>
-
+  </body>
+  <script src="src/app.js"></script>
 </html>

@@ -27,6 +27,12 @@ function search(event) {
     let wind = Math.round(response.data.wind.speed * 3.6);
     currentWind.innerHTML = `${wind} km/h`;
     currentWeather.innerHTML = response.data.weather[0].main;
+    let icon = response.data.weather[0].icon;
+    weatherIcon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${icon}@2x.png`
+    );
+    weatherIcon.setAttribute("alt", response.data.weather[0].main);
     function getCelsius(event) {
       event.preventDefault();
       celsiusLink.classList.add("active");
@@ -70,6 +76,12 @@ function getCurrentData() {
     let wind = Math.round(response.data.wind.speed * 3.6);
     currentWind.innerHTML = `${wind} km/h`;
     currentWeather.innerHTML = response.data.weather[0].main;
+    let icon = response.data.weather[0].icon;
+    weatherIcon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${icon}@2x.png`
+    );
+    weatherIcon.setAttribute("alt", response.data.weather[0].main);
 
     function getCelsius(event) {
       event.preventDefault();
@@ -98,6 +110,7 @@ let searchButton = document.getElementById("searchButton");
 let currentLocation = document.getElementById("currentLocation");
 let currentWind = document.getElementById("wind");
 let currentWeather = document.getElementById("currentWeather");
+let weatherIcon = document.getElementById("weatherIcon");
 
 currentLocation.addEventListener("click", getCurrentData);
 searchForm.addEventListener("submit", search);

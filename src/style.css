@@ -36,7 +36,7 @@ body {
 #currentDate {
   text-align: center;
 }
-.mainWeather i {
+#weatherIcon {
   font-size: 200px;
   text-align: center;
   padding: 50px;
