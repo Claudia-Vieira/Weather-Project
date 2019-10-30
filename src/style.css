@@ -73,15 +73,9 @@ body {
   color: grey;
   font-size: 30px;
 }
-.currentPrecipitation {
-  padding: 10px;
-}
 #wind {
   color: grey;
   font-size: 30px;
-}
-#precipitation {
-  color: #1aa3e9;
 }
 #display {
   border-radius: 10px;
