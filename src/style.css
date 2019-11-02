@@ -70,11 +70,12 @@ body {
 }
 .currentWind {
   padding: 10px;
+  margin-left: 10px;
   color: grey;
   font-size: 30px;
 }
 #wind {
-  color: grey;
+  color: black;
   font-size: 30px;
 }
 #display {
@@ -92,7 +93,7 @@ body {
   font-size: 20px;
   text-align: center;
 }
-.forecast {
+#forecast {
   text-align: center;
 }
 .weatherIconDays {

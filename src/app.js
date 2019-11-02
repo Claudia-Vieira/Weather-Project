@@ -46,7 +46,6 @@ function search(event) {
       celsiusLink.classList.remove("active");
       currentTemperature.innerHTML = Math.round(temperature * 1.8 + 32);
     }
-
     let celsiusLink = document.getElementById("celsius");
     let fahrenheitLink = document.getElementById("fahrenheit");
     celsiusLink.addEventListener("click", getCelsius);
@@ -54,25 +53,54 @@ function search(event) {
   }
 
   function displayForecast(response) {
-    event.preventDefault();
-    let dayOne = document.getElementById("day_one");
-    dayOne.innerHTML = response.data.list[7].dt_txt;
-    let tempOne = document.getElementById("temp_one");
-    tempOne.innerHTML = `${Math.round(
-      response.data.list[7].main.temp_max
-    )}º | ${Math.round(response.data.list[7].main.temp_min)}º`;
-    let weatherOne = document.getElementById("weather_one");
-    weatherOne.innerHTML = response.data.list[7].weather[0].main;
-    let windOne = document.getElementById("wind_one");
-    windOne.innerHTML = `${Math.round(
-      response.data.list[7].wind.speed * 3.6
-    )}km/h`;
-    let iconOneImg = document.getElementById("icon_one");
-    iconOne = response.data.list[7].weather[0].icon;
-    iconOneImg.setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${iconOne}@2x.png`
-    );
+    let forecast = document.getElementById("forecast");
+    let forecastData = null;
+    forecast.innerHTML = null;
+
+    for (let index = 0; index >= 0; index = index + 8) {
+      forecastData = response.data.list[index];
+      console.log(response.data);
+      forecast.innerHTML += `
+     <div class="row">
+            <div class="col-1">
+              <p id="day_one"></p>
+            </div>
+            <div class="col-1">
+              <p>
+                <i class="far fa-dot-circle" id="dot1"></i>
+              </p>
+            </div>
+            <div class="col-3">
+              <p id="temp_one">
+                ${Math.round(forecastData.main.temp_max)}ºC
+              </p>
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <img src="http://openweathermap.org/img/wn/${
+                    forecastData.weather[0].icon
+                  }@2x.png" alt="" id="icon_one" />
+                </div>
+                <div class="col-6 weatherDays">
+                  <p id="weather_one">
+                  ${forecastData.weather[0].main}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p id="icon_one"><i class="fas fa-wind currentWind"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p id="wind_one">
+                  ${Math.round(forecastData.wind.speed * 3.6)}km/h</p>
+                </div>
+              </div>
+            </div>
+          </div>`;
+    }
   }
 
   let apiKey = `011674ac65e3e0ef6d73be0d4fdbae64`;
