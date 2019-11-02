@@ -93,7 +93,7 @@ function search(event) {
             </div>
             <div class="col-3">
               <p id="temp_one">
-                ${Math.round(forecastData.main.temp_max)}ºC
+                ${Math.round(forecastData.main.temp)}ºC
               </p>
             </div>
             <div class="col-4">
@@ -109,7 +109,7 @@ function search(event) {
                 </div>
               </div>
             </div>
-            <div class="col-2">
+            <div class="col-3">
               <div class="row">
                 <div class="col-6 weatherIconDays">
                   <p id="icon_one"><i class="fas fa-wind currentWind"></i></p>
@@ -173,6 +173,75 @@ function getCurrentData() {
     let fahrenheitLink = document.getElementById("fahrenheit");
     celsiusLink.addEventListener("click", getCelsius);
     fahrenheitLink.addEventListener("click", getFahrenheit);
+  }
+
+  function displayForecast(response) {
+    let temperature = Math.round(response.data.list[0].main.temp);
+    currentTemperature.innerHTML = temperature;
+    currentCity.innerHTML = response.data.city.name;
+    let wind = Math.round(response.data.list[0].wind.speed * 3.6);
+    currentWind.innerHTML = `${wind} km/h`;
+    currentWeather.innerHTML = response.data.list[0].weather[0].main;
+    let icon = response.data.list[0].weather[0].icon;
+    weatherIcon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${icon}@2x.png`
+    );
+
+    let forecast = document.getElementById("forecast");
+    let forecastData = null;
+    forecast.innerHTML = null;
+
+    for (let index = 0; index >= 0; index = index + 8) {
+      forecastData = response.data.list[index];
+      forecast.innerHTML += `
+     <div class="row">
+            <div class="col-1">
+              <p id="day_one"></p>
+            </div>
+            <div class="col-1">
+              <p>
+                <i class="far fa-dot-circle" id="dot1"></i>
+              </p>
+            </div>
+            <div class="col-3">
+              <p id="temp_one">
+                ${Math.round(forecastData.main.temp)}ºC
+              </p>
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <img src="http://openweathermap.org/img/wn/${
+                    forecastData.weather[0].icon
+                  }@2x.png" alt="" id="icon_one" />
+                </div>
+                <div class="col-6 weatherDays">
+                  <p id="weather_one">
+                  ${forecastData.weather[0].main}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row">
+                <div class="col-6 weatherIconDays">
+                  <p id="icon_one"><i class="fas fa-wind currentWind"></i></p>
+                </div>
+                <div class="col-6 weatherDays">
+                  <p id="wind_one">
+                  ${Math.round(forecastData.wind.speed * 3.6)}km/h</p>
+                </div>
+              </div>
+            </div>
+          </div>`;
+    }
+  }
+  function getLocal(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiKey = `011674ac65e3e0ef6d73be0d4fdbae64`;
+    let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    axios.get(url).then(displayForecast);
   }
 }
 let searchCity = document.getElementById("enterCity");
