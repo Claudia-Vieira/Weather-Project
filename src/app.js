@@ -53,11 +53,34 @@ function search(event) {
     fahrenheitLink.addEventListener("click", getFahrenheit);
   }
 
-  let apiKey = `011674ac65e3e0ef6d73be0d4fdbae64`;
+  function displayForecast(response) {
+    event.preventDefault();
+    let dayOne = document.getElementById("day_one");
+    dayOne.innerHTML = response.data.list[7].dt_txt;
+    let tempOne = document.getElementById("temp_one");
+    tempOne.innerHTML = `${Math.round(
+      response.data.list[7].main.temp_max
+    )}º | ${Math.round(response.data.list[7].main.temp_min)}º`;
+    let weatherOne = document.getElementById("weather_one");
+    weatherOne.innerHTML = response.data.list[7].weather[0].main;
+    let windOne = document.getElementById("wind_one");
+    windOne.innerHTML = `${Math.round(
+      response.data.list[7].wind.speed * 3.6
+    )}km/h`;
+    let iconOneImg = document.getElementById("icon_one");
+    iconOne = response.data.list[7].weather[0].icon;
+    iconOneImg.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${iconOne}@2x.png`
+    );
+  }
 
+  let apiKey = `011674ac65e3e0ef6d73be0d4fdbae64`;
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity.value}&appid=${apiKey}&units=metric`;
   axios.get(url).then(showTemperature);
-  console.log(url);
+
+  url = `https://api.openweathermap.org/data/2.5/forecast?q=${searchCity.value},us&appid=${apiKey}&units=metric`;
+  axios.get(url).then(displayForecast);
 }
 
 function getCurrentData() {

@@ -121,3 +121,8 @@ body {
 #cloud {
   color: #535353;
 }
+#icon_one {
+  width: 50px;
+  padding: 0;
+  margin: 0;
+}
