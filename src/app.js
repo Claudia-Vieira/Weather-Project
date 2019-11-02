@@ -17,6 +17,27 @@ if (minutes < 10) {
 }
 currentDate.innerHTML = `${day} ${hour}:${minutes}`;
 
+let selectHour = document.getElementById("select_hour");
+selectHour.innerHTML = `<label for="rangeHour">Hour</label>
+              <input
+                type="range"
+                class="custom-range"
+                value="${hour}"
+                min="0"
+                max="23"
+                step="3"
+                id="rangeHour"
+                oninput="display.value=value"
+                onchange="display.value=value"
+              />
+              <input
+                type="number"
+                id="display"
+                value="${hour}"
+                oninput="rangeHour.value=value"
+                onchange="rangeHour.value=value"
+              />`;
+
 function search(event) {
   event.preventDefault();
   currentCity.innerHTML = searchCity.value;

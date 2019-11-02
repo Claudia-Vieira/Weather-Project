@@ -87,7 +87,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <form>
+            <form id="select_hour">
               <label for="rangeHour">Hour</label>
               <input
                 type="range"
@@ -95,6 +95,7 @@
                 value="0"
                 min="0"
                 max="23"
+                step="3"
                 id="rangeHour"
                 oninput="display.value=value"
                 onchange="display.value=value"
